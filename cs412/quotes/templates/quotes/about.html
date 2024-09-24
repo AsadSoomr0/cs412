@@ -1,0 +1,12 @@
+{% extends 'quotes/base.html' %}
+{% load static %}
+
+{% block title %}About{% endblock %}
+
+{% block content %}
+    <h2>About {{ person.name }}</h2>
+    <p>{{ person.bio }}</p>
+
+    <h3>About the Creator</h3>
+    <p>{{ person.creator }}</p>
+{% endblock %}

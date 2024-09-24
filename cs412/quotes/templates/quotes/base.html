@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Quote of the Day{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Quote of the Day Application</h1>
+        <nav>
+            <ul>
+                <li><a href="/quote">Random Quote</a></li>
+                <li><a href="/show_all">Show All Quotes</a></li>
+                <li><a href="/about">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        <!-- Page-specific content will be inserted here -->
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2024, Asad Soomro</p>
+    </footer>
+</body>
+</html>
