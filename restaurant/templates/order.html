@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<h2>Order Form</h2>
+<form method="post" action="{% url 'confirmation' %}">
+    {% csrf_token %}
+    <ul>
+        {% for item in menu_items %}
+        <li>
+            <input type="checkbox" name="items" value="{{ item.name }}" id="{{ item.name|slugify }}" onclick="toggleAddons()"> 
+            {{ item.name }} - ${{ item.price }}
+        </li>
+        {% if item.name == 'Pizza' %}
+        <li id="pizza-addons" style="display: none; margin-left: 20px;">
+            <label>Add-ons:</label><br>
+            {% for addon in pizza_addons %}
+            <input type="checkbox" name="pizza_addons" value="{{ addon.name }}"> {{ addon.name }} - ${{ addon.price }}<br>
+            {% endfor %}
+        </li>
+        {% endif %}
+        {% endfor %}
+
+        <li>
+            <input type="checkbox" name="items" value="Daily Special"> Daily Special: {{ daily_special.name }} - ${{ daily_special.price }}
+        </li>
+    </ul>
+
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required><br>
+
+    <label for="phone">Phone:</label>
+    <input type="text" id="phone" name="phone" required><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br>
+
+    <label for="instructions">Special Instructions:</label><br>
+    <textarea id="instructions" name="instructions"></textarea><br>
+
+    <input type="submit" value="Place Order">
+</form>
+
+<script>
+function toggleAddons() {
+    var pizzaCheckbox = document.getElementById('pizza');
+    var addonsSection = document.getElementById('pizza-addons');
+    
+    if (pizzaCheckbox.checked) {
+        addonsSection.style.display = 'block';  
+    } else {
+        addonsSection.style.display = 'none';  
+    }
+}
+</script>
+
+{% endblock %}

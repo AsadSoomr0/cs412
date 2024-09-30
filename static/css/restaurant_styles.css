@@ -1,0 +1,132 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f4f4f4;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+.content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+}
+
+header {
+    text-align: center;
+    background-color: #ff6347;
+    padding: 15px;
+    border-radius: 8px;
+    color: white;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+}
+
+h2 {
+    margin: 20px 0;
+    font-size: 2rem;
+    text-align: center;
+    color: #ff6347;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    font-size: 1rem;
+}
+
+textarea {
+    resize: none;
+    height: 100px;
+}
+
+input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+input[type="submit"] {
+    background-color: #ff6347;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 20px;
+}
+
+input[type="submit"]:hover {
+    background-color: #e5533d;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    background-color: #f7f7f7;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+#pizza-addons {
+    margin-left: 20px;
+    background-color: #fff3e6;
+    padding: 10px;
+    border: 1px solid #ff6347;
+    border-radius: 5px;
+}
+
+#pizza-addons label {
+    margin-top: 0;
+}
+
+.confirmation {
+    margin-top: 30px;
+}
+
+.confirmation p {
+    font-size: 1.1rem;
+    margin: 15px 0;
+}
+
+ul.confirmation-items {
+    list-style-type: disc;
+    margin-left: 20px;
+}
+
+ul.confirmation-items li {
+    font-size: 1.1rem;
+}

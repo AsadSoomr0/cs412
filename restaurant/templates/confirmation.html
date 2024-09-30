@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<h2>Order Confirmation</h2>
+
+<p>Thank you for your order, {{ customer_name }}!</p>
+
+<p>Your order:</p>
+<ul>
+    {% for item in ordered_items %}
+    <li>
+        {{ item.name }} - ${{ item.price }}
+        {% if item.name == 'Pizza' and item.addons %}
+        <ul style="margin-left: 20px;">
+            <li>Add-ons:</li>
+            {% for addon in item.addons %}
+            <li>{{ addon.name }} - ${{ addon.price }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+
+{% if special_instructions %}
+<p><strong>Special Instructions:</strong> {{ special_instructions }}</p>
+{% endif %}
+
+<p><strong>Total:</strong> ${{ total }}</p>
+
+<p>Your order will be ready by {{ ready_time }}.</p>
+
+{% endblock %}

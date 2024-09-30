@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Brookline Bistro</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/restaurant_styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Welcome to Brookline Bistro!</h1>
+        <nav>
+            <a href="{% url 'main' %}">Home</a>
+            <a href="{% url 'order' %}">Order</a>
+        </nav>
+    </header>
+    <div>
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
