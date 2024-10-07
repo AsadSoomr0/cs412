@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/mini_fb_styles.css' %}">
+    <title>Mini Facebook</title>
+</head>
+<body>
+    <header>
+        <h1>Mini Facebook</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'show_all_profiles' %}">Profiles</a></li>
+                <!-- Will add other links later -->
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content Section -->
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Mini Facebook.</p>
+    </footer>
+</body>
+</html>
