@@ -34,7 +34,18 @@ class CreateStatusMessageView(CreateView):
 
     def form_valid(self, form):
         profile = Profile.objects.get(pk=self.kwargs['pk'])
-        form.instance.profile = profile
+
+        sm = form.save(commit=False)  
+        sm.profile = profile  
+
+        sm.save()
+
+        # Handle file uploads
+        files = self.request.FILES.getlist('files')
+        for file in files:
+            image = Image(status_message=sm, image_file=file)
+            image.save()
+
         return super().form_valid(form)
 
     def get_success_url(self):

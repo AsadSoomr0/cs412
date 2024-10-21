@@ -8,22 +8,32 @@
 
     <h3>Status Messages</h3>
     <ul>
-        {% for status in profile.get_status_messages %}
+        {% for status in object.get_status_messages %}
             <li>
                 <strong>{{ status.timestamp }}:</strong> {{ status.message }}
+
+                <!-- Loop through and display images associated with this status message -->
+                <div>
+                    {% for img in status.get_images %}
+                        <img src="{{ img.image_file.url }}" alt="Image for Status" width="300">
+                    {% empty %}
+                        <p>No images available for this status.</p>
+                    {% endfor %}
+                </div>
             </li>
         {% empty %}
             <p>No status messages available.</p>
         {% endfor %}
     </ul>
 
-        <!-- Form to create a new status -->
+    <!-- Form to create a new status -->
     <h3>Post a new status</h3>
-    <form method="post" action="{% url 'create_status' profile.pk %}">
+    <form method="post" action="{% url 'create_status' object.pk %}" enctype="multipart/form-data">
         {% csrf_token %}
         {{ status_form.as_p }}
+        <input type="file" name="files" multiple> <!-- Allow image uploads -->
         <input type="submit" value="Post Status">
     </form>
 
     <a href="{% url 'show_all_profiles' %}">Back to All Profiles</a>
-{% endblock %}  
+{% endblock %}
