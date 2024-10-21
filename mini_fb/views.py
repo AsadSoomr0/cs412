@@ -2,9 +2,12 @@ from django.shortcuts import render
 from django.views.generic import ListView
 from django.views.generic import DetailView
 from django.views.generic import CreateView
+from django.views.generic import UpdateView
+from django.views.generic import DeleteView
 from django.urls import reverse
 from .forms import CreateProfileForm
 from .forms import CreateStatusMessageForm
+from .forms import UpdateProfileForm
 from .models import *
 
 # Create your views here.
@@ -56,3 +59,31 @@ class CreateStatusMessageView(CreateView):
         context = super().get_context_data(**kwargs)
         context['profile'] = Profile.objects.get(pk=self.kwargs['pk'])
         return context
+    
+class UpdateProfileView(UpdateView): 
+    #View inheriting django's generic updateview used to update profiles 
+    model = Profile
+    form_class = UpdateProfileForm
+    template_name = 'mini_fb/update_profile_form.html'
+
+    def get_success_url(self):
+        return reverse('show_profile', kwargs={'pk': self.object.pk})
+    
+class DeleteStatusMessageView(DeleteView):
+    #View inheriting from django's generic deleteview, used to delete status messages
+    model = StatusMessage
+    template_name = 'mini_fb/delete_status_form.html'
+    context_object_name = 'status_message'
+
+    def get_success_url(self):
+        profile_pk = self.object.profile.pk
+        return reverse('show_profile', kwargs={'pk': profile_pk})
+    
+class UpdateStatusMessageView(UpdateView):
+    model = StatusMessage
+    template_name = 'mini_fb/update_status_form.html'
+    fields = ['message']
+
+    def get_success_url(self):
+        profile_pk = self.object.profile.pk
+        return reverse('show_profile', kwargs={'pk': profile_pk})

@@ -11,13 +11,12 @@
         {% for status in object.get_status_messages %}
             <li>
                 <strong>{{ status.timestamp }}:</strong> {{ status.message }}
-
+                <a href="{% url 'update_status' status.pk %}">Update</a> | 
+                <a href="{% url 'delete_status' status.pk %}">Delete</a>
                 <!-- Loop through and display images associated with this status message -->
                 <div>
                     {% for img in status.get_images %}
                         <img src="{{ img.image_file.url }}" alt="Image for Status" width="300">
-                    {% empty %}
-                        <p>No images available for this status.</p>
                     {% endfor %}
                 </div>
             </li>
@@ -35,5 +34,6 @@
         <input type="submit" value="Post Status">
     </form>
 
+    <a href="{% url 'update_profile' object.pk %}">Update Profile</a>
     <a href="{% url 'show_all_profiles' %}">Back to All Profiles</a>
 {% endblock %}
