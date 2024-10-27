@@ -86,3 +86,29 @@ footer {
     width: 100%;
     margin-top: 20px;
 }
+
+
+.friend-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.friend-item {
+    text-align: center;
+    width: 80px;
+}
+
+.friend-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 15px;
+    object-fit: cover;
+}
+
+.friend-link {
+    text-decoration: none;
+    color: inherit;
+}

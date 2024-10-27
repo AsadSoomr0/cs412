@@ -35,14 +35,17 @@
     </form>
 
     <h3>Friends</h3>
-    <ul>
-    {% for friend in profile.get_friends %}
-        <li><a href="{% url 'show_profile' friend.pk %}">{{ friend.first_name }} {{ friend.last_name }}</a></li>
-    {% empty %}
-        <p>No friends available.</p>
-    {% endfor %}
-    </ul>
-    
+    <div class="friend-container">
+        {% for friend in object.get_friends %}
+        <a href="{% url 'show_profile' friend.pk %}" class="friend-link">
+            <div class="friend-item">
+                <img src="{{ friend.profile_image_url }}" alt="{{ friend.first_name }}" class="friend-image">
+                <p>{{ friend.first_name }} {{ friend.last_name }}</p>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+
     <a href="{% url 'update_profile' object.pk %}">Update Profile</a>
     <a href="{% url 'show_all_profiles' %}">Back to All Profiles</a>
 {% endblock %}
