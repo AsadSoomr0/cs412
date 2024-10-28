@@ -46,6 +46,9 @@
         {% endfor %}
     </div>
 
+
+    <a href="{% url 'friend_suggestions' object.pk %}">View Friend Suggestions</a>
+    <a href="{% url 'news_feed' object.pk %}">View News Feed</a>
     <a href="{% url 'update_profile' object.pk %}">Update Profile</a>
     <a href="{% url 'show_all_profiles' %}">Back to All Profiles</a>
 {% endblock %}

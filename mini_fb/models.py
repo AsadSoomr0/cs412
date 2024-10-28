@@ -4,6 +4,8 @@ from django.utils import timezone
 
 from django.db import models
 from django.urls import reverse
+from django.db.models import Q
+
 
 class Profile(models.Model):
     first_name = models.CharField(max_length=100)
@@ -22,13 +24,54 @@ class Profile(models.Model):
         return reverse('show_profile', kwargs={'pk': self.pk})
 
     def get_friends(self):
-        friends = Friend.objects.filter(models.Q(profile1=self) | models.Q(profile2=self))
+        friends = Friend.objects.filter(Q(profile1=self) | Q(profile2=self))
         friend_profiles = [
             friend.profile2 if friend.profile1 == self else friend.profile1
             for friend in friends
         ]
         return friend_profiles
 
+    def add_friend(self, other):
+        if self != other and not Friend.objects.filter(
+            models.Q(profile1=self, profile2=other) | models.Q(profile1=other, profile2=self)
+        ).exists():
+            Friend.objects.create(profile1=self, profile2=other, timestamp=timezone.now())
+    
+    def get_friend_suggestions(self):
+        # Step 1: Collect IDs of the current profile's friends
+        current_friend_ids = set()
+
+        for friendship in Friend.objects.filter(profile1=self):
+            current_friend_ids.add(friendship.profile2.pk)
+        for friendship in Friend.objects.filter(profile2=self):
+            current_friend_ids.add(friendship.profile1.pk)
+
+        # Step 2: Gather friends of friends, excluding current friends and self
+        friend_suggestion_ids = set()
+
+        # Friends of friends through profile1
+        for friendship in Friend.objects.filter(profile1__in=current_friend_ids):
+            if friendship.profile2.pk != self.pk and friendship.profile2.pk not in current_friend_ids:
+                friend_suggestion_ids.add(friendship.profile2.pk)
+
+        # Friends of friends through profile2
+        for friendship in Friend.objects.filter(profile2__in=current_friend_ids):
+            if friendship.profile1.pk != self.pk and friendship.profile1.pk not in current_friend_ids:
+                friend_suggestion_ids.add(friendship.profile1.pk)
+
+        # Return Profiles based on friend suggestion IDs
+        return Profile.objects.filter(pk__in=friend_suggestion_ids)
+    
+    def get_news_feed(self):
+        # Get this profile's friends using the ORM
+        friends = self.get_friends()
+
+        # Filter for status messages by this profile or any friend
+        feed = StatusMessage.objects.filter(
+            Q(profile=self) | Q(profile__in=friends)
+        ).order_by('-timestamp')  # Order by most recent first
+
+        return feed
     
 class StatusMessage(models.Model):
     message = models.TextField()
