@@ -11,9 +11,10 @@
         {% for status in object.get_status_messages %}
             <li>
                 <strong>{{ status.timestamp }}:</strong> {{ status.message }}
-                <a href="{% url 'update_status' status.pk %}">Update</a> | 
-                <a href="{% url 'delete_status' status.pk %}">Delete</a>
-                <!-- Loop through and display images associated with this status message -->
+                {% if is_owner %}
+                    <a href="{% url 'update_status' status.pk %}">Update</a> | 
+                    <a href="{% url 'delete_status' status.pk %}">Delete</a>
+                {% endif %}
                 <div>
                     {% for img in status.get_images %}
                         <img src="{{ img.image_file.url }}" alt="Image for Status" width="300">
@@ -25,30 +26,35 @@
         {% endfor %}
     </ul>
 
-    <!-- Form to create a new status -->
-    <h3>Post a new status</h3>
-    <form method="post" action="{% url 'create_status' object.pk %}" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ status_form.as_p }}
-        <input type="file" name="files" multiple> <!-- Allow image uploads -->
-        <input type="submit" value="Post Status">
-    </form>
+    <!-- Form to create a new status, only shown to the profile owner -->
+    {% if is_owner %}
+        <h3>Post a new status</h3>
+        <form method="post" action="{% url 'create_status' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ status_form.as_p }}
+            <input type="file" name="files" multiple> <!-- Allow image uploads -->
+            <input type="submit" value="Post Status">
+        </form>
+    {% endif %}
 
     <h3>Friends</h3>
     <div class="friend-container">
         {% for friend in object.get_friends %}
-        <a href="{% url 'show_profile' friend.pk %}" class="friend-link">
-            <div class="friend-item">
-                <img src="{{ friend.profile_image_url }}" alt="{{ friend.first_name }}" class="friend-image">
-                <p>{{ friend.first_name }} {{ friend.last_name }}</p>
-            </div>
-        </a>
+            <a href="{% url 'show_profile' friend.pk %}" class="friend-link">
+                <div class="friend-item">
+                    <img src="{{ friend.profile_image_url }}" alt="{{ friend.first_name }}" class="friend-image">
+                    <p>{{ friend.first_name }} {{ friend.last_name }}</p>
+                </div>
+            </a>
         {% endfor %}
     </div>
 
+    <!-- Links to Friend Suggestions and News Feed only shown to profile owner -->
+    {% if is_owner %}
+        <a href="{% url 'friend_suggestions' %}">View Friend Suggestions</a>
+        <a href="{% url 'news_feed' %}">View News Feed</a>
+        <a href="{% url 'update_profile' %}">Update Profile</a>
+    {% endif %}
 
-    <a href="{% url 'friend_suggestions' object.pk %}">View Friend Suggestions</a>
-    <a href="{% url 'news_feed' object.pk %}">View News Feed</a>
-    <a href="{% url 'update_profile' object.pk %}">Update Profile</a>
     <a href="{% url 'show_all_profiles' %}">Back to All Profiles</a>
 {% endblock %}

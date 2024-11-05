@@ -13,8 +13,20 @@
         <nav>
             <ul>
                 <li><a href="{% url 'show_all_profiles' %}">Profiles</a></li>
-                <li><a href="{% url 'create_profile' %}">Create Profile</a></li> 
-                <!-- Will add other links later -->
+                {% if user.is_authenticated %}
+                <li>
+                    <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" style="background:none; border:none; color:blue; text-decoration:underline; cursor:pointer;">
+                            Logout
+                        </button>
+                    </form>
+                </li>
+                    <li>Welcome, {{ user.username }}!</li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'create_profile' %}">Create Profile</a></li>
+                {% endif %}
             </ul>
         </nav>
     </header>

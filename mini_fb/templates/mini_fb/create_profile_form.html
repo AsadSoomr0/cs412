@@ -2,10 +2,22 @@
 {% load static %}
 
 {% block content %}
-<h2>Create a New Profile</h2>
-<form method="post">
+<h2>Create Profile</h2>
+<form method="post" enctype="multipart/form-data">
     {% csrf_token %}
+    
+    <h3>Account Information</h3>
+    {% if user_form.errors %}
+        <div class="error">{{ user_form.errors }}</div>
+    {% endif %}
+    {{ user_form.as_p }}
+
+    <h3>Profile Information</h3>
+    {% if form.errors %}
+        <div class="error">{{ form.errors }}</div>
+    {% endif %}
     {{ form.as_p }}
+
     <button type="submit">Create Profile</button>
 </form>
 {% endblock %}
