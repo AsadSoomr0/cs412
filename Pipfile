@@ -8,6 +8,8 @@ django = "*"
 gunicorn = "*"
 whitenoise = "*"
 pillow = "*"
+plotly = "*"
+pandas = "*"
 
 [dev-packages]
 

@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/voter_analytics_styles.css' %}">
+    <title>{% block title %}Voter Analytics{% endblock %}</title>
+    
+</head>
+<body>
+    <header>
+        <h1>Welcome to the Voter Analytics App</h1>
+    </header>
+    <main>
+        {% block content %}
+        <!-- Content will be injected here -->
+        {% endblock %}
+    </main>
+</body>
+</html>
