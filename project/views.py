@@ -6,10 +6,11 @@ from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
-from django.http import JsonResponse, Http404
-from .models import Route, Comment, Like, Vote, NewsletterPost, Profile
-from django.db.models import Count, Q
+from django.http import JsonResponse
+from .models import Route, Comment, Vote, NewsletterPost, Profile
+from django.db.models import Count
 from .forms import CommentForm, ProfileForm
+from datetime import datetime
 
 
 #User creation view
@@ -209,6 +210,8 @@ class ArchivedVotingView(TemplateView):
             .annotate(vote_count=Count('votes'))
             .order_by('-vote_count')
         )
+        # Add the voting deadline
+        context['voting_deadline'] = datetime(2024, 12, 31).strftime('%B %d, %Y') 
         return context
     
 class ProfileView(DetailView):
