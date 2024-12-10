@@ -10,6 +10,7 @@ whitenoise = "*"
 pillow = "*"
 plotly = "*"
 pandas = "*"
+faker = "*"
 
 [dev-packages]
 

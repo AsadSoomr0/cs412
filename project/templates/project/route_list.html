@@ -1,0 +1,104 @@
+{% extends "project/base.html" %}
+{% load static %}
+{% load project_filters %}
+
+{% block content %}
+<h1>Browse Our Routes!</h1>
+
+<!-- Filter Form -->
+<form method="get" action="{% url 'route-list' %}">
+    <label for="v_range">V-scale Range:</label>
+    <div id="v_range"></div>
+    <input type="hidden" id="v_min" name="v_min" value="{{ v_min|default:'0' }}">
+    <input type="hidden" id="v_max" name="v_max" value="{{ v_max|default:'12' }}">
+    <p>
+        Selected Range: V<span id="v_min_label">{{ v_min|default:'0' }}</span> - V<span id="v_max_label">{{ v_max|default:'12' }}</span>
+    </p>
+
+    <button type="submit">Filter</button>
+</form>
+
+<!-- Filtered Routes -->
+<div class="filtered-routes">
+    <h3>Filtered Routes</h3>
+    {% if routes %}
+    <ul>
+        {% for route in routes %}
+        <li>
+            <h4>{{ route.name }}</h4>
+            <p><strong>Type:</strong> {{ route.type|capfirst }}</p>
+            <p><strong>Difficulty:</strong> V{{ route.difficulty }}</p>
+            <p><strong>Status:</strong> {{ route.status|capfirst }}</p>
+            <a href="{% url 'route-detail' route.id %}" class="route-link">View Details</a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No routes match the selected criteria.</p>
+    {% endif %}
+</div>
+<!-- Pagination Controls -->
+{% if is_paginated %}
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.v_min %}&v_min={{ request.GET.v_min }}{% endif %}{% if request.GET.v_max %}&v_max={{ request.GET.v_max }}{% endif %}">Previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}{% if request.GET.v_min %}&v_min={{ request.GET.v_min }}{% endif %}{% if request.GET.v_max %}&v_max={{ request.GET.v_max }}{% endif %}">Next</a>
+            {% endif %}
+        </span>
+    </div>
+{% endif %}
+
+<!-- Include noUiSlider CSS and JS -->
+<link href="https://cdn.jsdelivr.net/npm/nouislider/distribute/nouislider.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/nouislider/distribute/nouislider.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const slider = document.getElementById('v_range');
+        const vMinInput = document.getElementById('v_min');
+        const vMaxInput = document.getElementById('v_max');
+        const vMinLabel = document.getElementById('v_min_label');
+        const vMaxLabel = document.getElementById('v_max_label');
+
+        // Initialize the slider
+        noUiSlider.create(slider, {
+            start: [
+                parseInt(vMinInput.value, 10), 
+                parseInt(vMaxInput.value, 10)
+            ],
+            connect: true,
+            range: {
+                'min': 0,
+                'max': 13
+            },
+            step: 1,
+            tooltips: [true, true],
+            format: {
+                to: function (value) {
+                    return Math.round(value);
+                },
+                from: function (value) {
+                    return Math.round(value);
+                }
+            }
+        });
+
+        // Update hidden inputs and labels when the slider changes
+        slider.noUiSlider.on('update', function (values) {
+            const [min, max] = values;
+            vMinInput.value = min;
+            vMaxInput.value = max;
+            vMinLabel.textContent = min;
+            vMaxLabel.textContent = max;
+        });
+    });
+</script>
+{% endblock %}

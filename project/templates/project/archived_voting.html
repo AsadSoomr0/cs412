@@ -1,0 +1,34 @@
+{% extends "project/base.html" %}
+{% block content %}
+{% load static %}
+
+<h1 class="page-title">Vote for Archived Climbs</h1>
+<p class="page-subtitle">
+    The climb with the most votes by {{ voting_deadline }} will return to the rotation!
+</p>
+
+<div class="archived-routes-list">
+    {% for route in archived_routes %}
+        <div class="route-entry">
+            <div class="route-info">
+                <h3><a href="{% url 'route-detail' route.id %}" class="route-link">{{ route.name }}</a></h3>
+                <p>Difficulty: V{{ route.difficulty }} | Location: {{ route.location }}</p>
+                <p>Votes: <strong>{{ route.vote_count }}</strong></p>
+            </div>
+            {% if user.is_authenticated %}
+                <div class="vote-button-container">
+                    <form method="post" action="{% url 'vote-route' route.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="vote-button">Vote</button>
+                    </form>
+                </div>
+            {% else %}
+                <p class="login-prompt">
+                    <a href="{% url 'login' %}?next={{ request.path }}">Log in</a> to vote.
+                </p>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

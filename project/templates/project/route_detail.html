@@ -1,0 +1,149 @@
+{% extends "project/base.html" %}
+{% load static %}
+{% load project_filters %}
+
+{% block content %}
+<div class="route-detail-container">
+    <h1>{{ object.name }}</h1>
+
+    <!-- Route Details -->
+    <p><strong>Type:</strong> {{ object.type|capfirst }}</p>
+    <p><strong>Location:</strong> {{ object.location }}</p>
+    <p><strong>Difficulty:</strong> V{{ object.difficulty }}</p>
+    <p><strong>Status:</strong> {{ object.get_status_display }}</p>
+    <p><strong>Setter:</strong> {{ object.setter_name }}</p>
+    <p><strong>Date Set:</strong> {{ object.date_set }}</p>
+    <p><strong>Replacement Date:</strong> {{ object.replacement_date }}</p>
+
+    <!-- Route Image -->
+    {% if object.image %}
+    <div class="route-image">
+        <img src="{{ object.image.url }}" alt="{{ object.name }}">
+    </div>
+    {% endif %}
+
+    <!-- Completion Button -->
+    {% if not is_archived %}
+    <p id="completion-text">Completed by {{ route.completed_by.count }} people</p>
+    <button id="route-completion-btn" data-route-id="{{ route.id }}" data-completed="{{ user_completed_route }}">
+        {% if user_completed_route %} Undo {% else %} Sent! {% endif %}
+    </button>
+    {% endif %}
+
+    <!-- Comments Section -->
+    <div class="comments-section">
+        <h2>Comments</h2>
+        <ul class="comments-list">
+            {% for comment in top_level_comments %}
+            <li class="comment-card">
+                <p>
+                    <strong>
+                        <a href="{% url 'profile' comment.user.username %}">
+                            {{ comment.user.username }}
+                        </a>
+                        {% if comment.user.project_profile.staff_status %}
+                        <span class="staff-badge">[STAFF]</span>
+                        {% endif %}
+                    </strong>: {{ comment.content }}
+                </p>                <p class="comment-date">{{ comment.created_at }}</p>
+                <button class="comment-like-btn" data-comment-id="{{ comment.id }}" data-liked="{{ user_liked_comments|dict_get:comment.id }}">
+                    {% if user_liked_comments|dict_get:comment.id %}
+                        Unlike ({{ comment.likes.count }})
+                    {% else %}
+                        Like ({{ comment.likes.count }})
+                    {% endif %}
+                </button>
+    
+                {% if user.is_authenticated %}
+                <button class="reply-btn" data-comment-id="{{ comment.id }}">Reply</button>
+                <div id="reply-form-{{ comment.id }}" class="reply-form" style="display: none;">
+                    <form method="post" action="{% url 'reply-comment' comment.id %}">
+                        {% csrf_token %}
+                        <textarea name="content" rows="2" placeholder="Write your reply..."></textarea>
+                        <button type="submit">Post Reply</button>
+                    </form>
+                </div>
+                {% endif %}
+    
+                <!-- Include replies recursively -->
+                {% include 'project/comment_replies.html' with comments=comment.replies.all %}
+            </li>
+            {% empty %}
+            <p>No comments yet. Be the first to comment!</p>
+            {% endfor %}
+        </ul>
+    
+        <!-- Add Comment Form -->
+        {% if user.is_authenticated %}
+        <form method="post" class="add-comment-form">
+            {% csrf_token %}
+            <textarea name="content" rows="4" placeholder="Write a comment..."></textarea>
+            <button type="submit" class="post-comment-btn">Post Comment</button>
+        </form>
+        {% else %}
+        <p><a href="{% url 'login' %}?next={{ request.path }}">Log in</a> to add a comment.</p>
+        {% endif %}
+    </div>
+<!-- JavaScript for Dynamic Actions -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.reply-btn').forEach(function(button) {
+        button.addEventListener('click', function() {
+            const commentId = this.getAttribute('data-comment-id');
+            const replyForm = document.getElementById(`reply-form-${commentId}`);
+            if (replyForm.style.display === 'none') {
+                replyForm.style.display = 'block';
+            } else {
+                replyForm.style.display = 'none';
+            }
+        });
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle liking/unliking the route
+    const routeCompletionBtn = document.getElementById('route-completion-btn');
+    const completionText = document.getElementById('completion-text');
+    if (routeCompletionBtn) {
+        routeCompletionBtn.addEventListener('click', function () {
+            const routeId = this.getAttribute('data-route-id');
+            fetch(`/project/route/${routeId}/complete/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Update button text
+                this.textContent = data.completed ? 'Undo' : 'Sent!';
+                // Update completion text
+                completionText.textContent = `Completed by ${data.completed_count} people`;
+                // Update the button's data attribute
+                this.setAttribute('data-completed', data.completed);
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    }
+
+    // Handle liking/unliking comments
+    document.querySelectorAll('.comment-like-btn').forEach(function (button) {
+        button.addEventListener('click', function () {
+            const commentId = this.getAttribute('data-comment-id');
+            fetch(`/project/comment/${commentId}/like/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                this.textContent = data.liked ? `Unlike (${data.like_count})` : `Like (${data.like_count})`;
+                this.setAttribute('data-liked', data.liked);
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    });
+});
+</script>
+{% endblock %}

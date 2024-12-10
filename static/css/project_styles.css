@@ -1,0 +1,682 @@
+/* Wrapper for Content */
+.content-wrapper {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 0;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Page Background */
+body {
+    background: linear-gradient(to right, #f0f8ff 20%, #ffffff 60%, #f0f8ff 20%);
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Hero Section */
+.hero-section {
+    text-align: center;
+    padding: 50px 20px;
+    background: linear-gradient(to right, #4CAF50, #8BC34A);
+    color: white;
+    font-size: 2em;
+    font-weight: bold;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+/* Section Titles */
+.section-title {
+    text-align: center;
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: #555;
+    text-transform: uppercase;
+}
+
+/* About Us Section */
+.gym-info {
+    text-align: center;
+    margin: 30px auto;
+    max-width: 800px;
+    background: #f5f5f5;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.gym-info p {
+    margin: 15px 0;
+    font-size: 1.2em;
+    line-height: 1.5;
+}
+
+.gym-info .feature {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0;
+    font-size: 1.2em;
+}
+
+.gym-info .feature span {
+    font-size: 1.5em;
+    margin-right: 10px;
+    color: #4CAF50;
+}
+
+/* Vote Section */
+.voting-section {
+    text-align: center;
+    margin: 40px auto;
+    background: #fff5e5;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.vote-now-button {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: #ff9800;
+    color: white;
+    text-decoration: none;
+    font-size: 1em;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.vote-now-button:hover {
+    background: #e68900;
+}
+
+/* Newsletter Section */
+.newsletter-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.newsletter-card {
+    width: 90%;
+    max-width: 700px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.newsletter-content {
+    padding: 20px;
+    font-size: 1em;
+    line-height: 1.6;
+}
+
+/* Footer */
+.site-footer {
+    text-align: center;
+    padding: 10px 20px;
+    background: #333;
+    color: white;
+    font-size: 0.9em;
+}
+
+/* Navigation Bar */
+.site-nav {
+    background-color: #333;
+    padding: 15px;
+}
+
+.site-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.site-nav ul li {
+    display: inline;
+}
+
+.site-nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.1em;
+    padding: 5px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.logout-form {
+    display: inline;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: none;
+}
+
+.logout-link {
+    all: unset;
+    color: #fff;
+    font-size: 1.1em;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 0;
+    margin: 0;
+    display: inline;
+}
+
+.logout-link:hover {
+    background-color: #333;
+}
+
+
+/* Signup Page Styling */
+.signup-container {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 30px 40px;
+    max-width: 500px;
+    margin: 50px auto;
+    text-align: center;
+}
+
+.signup-container h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.signup-container form {
+    margin-bottom: 20px;
+}
+
+.signup-container form input[type="text"],
+.signup-container form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    font-size: 1em;
+}
+
+.signup-container form input[type="text"]:focus,
+.signup-container form input[type="password"]:focus {
+    outline: none;
+    border-color: #4CAF50;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+.signup-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.signup-button:hover {
+    background-color: #45a049;
+}
+
+.signup-container p {
+    font-size: 1em;
+    margin-top: 15px;
+}
+
+.signup-container p a {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.signup-container p a:hover {
+    text-decoration: underline;
+}
+
+/* Login Page Styling */
+.login-container {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 30px 40px;
+    max-width: 500px;
+    margin: 50px auto;
+    text-align: center;
+}
+
+.login-container h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.login-container form {
+    margin-bottom: 20px;
+}
+
+.login-container form input[type="text"],
+.login-container form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    font-size: 1em;
+}
+
+.login-container form input[type="text"]:focus,
+.login-container form input[type="password"]:focus {
+    outline: none;
+    border-color: #4CAF50;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+.login-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+    background-color: #45a049;
+}
+
+.login-container p {
+    font-size: 1em;
+    margin-top: 15px;
+}
+
+.login-container p a {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-container p a:hover {
+    text-decoration: underline;
+}
+
+/* Contact Us Page Styling */
+.contact-container {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 30px 40px;
+    max-width: 600px;
+    margin: 50px auto;
+    text-align: center;
+}
+
+.contact-container h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.contact-container p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin: 10px 0;
+}
+
+.contact-container .contact-details p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 1.1em;
+    margin: 15px 0;
+}
+
+.contact-container .contact-details a {
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+.contact-container .contact-details a:hover {
+    text-decoration: underline;
+}
+
+.contact-container .icon {
+    font-size: 1.5em;
+    color: #4CAF50;
+}
+
+/* Slider Styling */
+.noUi-target {
+    background: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    height: 10px;
+    margin: 20px 0;
+}
+
+.noUi-handle {
+    background: #4CAF50;
+    border: 2px solid #388E3C;
+    border-radius: 50%;
+    height: 24px;
+    width: 24px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transform: translate(-50%, -40%);
+}
+
+.noUi-handle:hover {
+    background: #45a049;
+}
+
+.noUi-connect {
+    background: #4CAF50;
+    border-radius: 10px;
+}
+
+/* Filter Form Styling */
+form {
+    background: #fff;
+    padding: 20px 30px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto 30px;
+    text-align: center;
+}
+
+form label {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+}
+
+form .filter-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+form .filter-button:hover {
+    background-color: #388E3C;
+}
+
+/* Filtered Routes Section */
+.filtered-routes ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    max-width: 1000px;
+}
+
+.filtered-routes li {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.filtered-routes li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.filtered-routes li h4 {
+    margin: 0 0 10px;
+    font-size: 1.2em;
+    color: #4CAF50;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.filtered-routes li p {
+    margin: 5px 0;
+    color: #555;
+    font-size: 0.95em;
+}
+
+.filtered-routes li .route-link {
+    display: inline-block;
+    margin-top: 10px;
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.filtered-routes li .route-link:hover {
+    color: #388E3C;
+    text-decoration: underline;
+}
+
+/* General Route Detail Container */
+.route-detail-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.route-detail-container h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.route-detail-container p {
+    margin: 5px 0;
+    font-size: 1em;
+    color: #555;
+}
+
+/* Route Image */
+.route-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 20px 0;
+}
+
+/* Comments Section */
+.comments-section {
+    margin-top: 30px;
+}
+
+.comments-section h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #333;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+}
+
+/* Comments List */
+.comments-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.comment-card {
+    margin-bottom: 15px;
+}
+
+.comment-card p {
+    margin: 5px 0;
+    font-size: 0.95em;
+    color: #444;
+}
+
+.comment-card .comment-date {
+    font-size: 0.85em;
+    color: #888;
+}
+
+/* Add Comment Form */
+.add-comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.add-comment-form textarea {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    resize: none;
+    font-size: 0.95em;
+}
+
+.add-comment-form .post-comment-btn {
+    align-self: flex-start;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.add-comment-form .post-comment-btn:hover {
+    background-color: #388E3C;
+}
+
+/* Back Link */
+.back-link {
+    margin-top: 20px;
+    display: inline-block;
+    color: #4CAF50;
+    text-decoration: none;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+.staff-badge {
+    background-color: #FFD700;
+    color: #333;
+    font-size: 0.85rem;
+    font-weight: bold;
+    padding: 2px 5px;
+    border-radius: 4px;
+    margin-left: 5px;
+    display: inline-block;
+}
+
+.page-title {
+    font-size: 2em;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.page-subtitle {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #666;
+}
+
+/* Archived Routes List */
+.archived-routes-list {
+    padding: 20px;
+}
+
+.route-entry {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.route-entry:last-child {
+    border-bottom: none;
+}
+
+/* Route Info */
+.route-info h3 {
+    margin: 0;
+    font-size: 1.3em;
+}
+
+.route-info p {
+    margin: 5px 0;
+    color: #666;
+}
+
+.route-info strong {
+    color: #333;
+}
+
+/* Vote Button */
+.vote-form {
+    margin: 0;
+}
+
+/* Vote Button */
+.vote-button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.vote-button:hover {
+    background-color: #218838;
+}
+
+.vote-button-container {
+    box-shadow: none;
+    border: none;
+    background: none;
+    padding: 0;
+}
+
+
+/* Login Prompt */
+.login-prompt {
+    font-size: 0.9em;
+    color: #666;
+}

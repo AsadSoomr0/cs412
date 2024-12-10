@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
+from project.views import signup
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,6 +26,9 @@ urlpatterns = [
     path('restaurant/', include('restaurant.urls')),
     path('mini_fb/', include('mini_fb.urls')),
     path('voter_analytics/', include('voter_analytics.urls')),
+    path('project/', include('project.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/signup/', signup, name='signup'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

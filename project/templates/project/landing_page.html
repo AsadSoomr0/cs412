@@ -1,0 +1,62 @@
+{% extends "project/base.html" %}
+{% load static %}
+{% block content %}
+{% load project_filters %}
+
+<!-- Hero Section -->
+<div class="hero-section">
+    <h1>Welcome to Rock City</h1>
+    <p>Your ultimate destination for climbing fun and fitness!</p>
+</div>
+
+<!-- About Our Gym -->
+<section class="gym-info">
+    <h2>About Our Gym</h2>
+    <p>Discover routes of all difficulties and climb to your heart's content.</p>
+    <div class="feature">
+        <span>🧗‍♂️</span> State-of-the-art climbing walls
+    </div>
+    <div class="feature">
+        <span>🛠️</span> Expert route setters
+    </div>
+    <div class="feature">
+        <span>🤝</span> Welcoming community of climbers
+    </div>
+</section>
+
+<!-- Vote for Your Favorite Climb -->
+<section class="voting-section">
+    <h2 class="section-title">Vote for Your Favorite Archived Climb</h2>
+    <p>Help us decide which archived climb to bring back next!</p>
+    <a href="{% url 'archived-voting' %}" class="vote-now-button">Vote Now</a>
+</section>
+
+<!-- Newsletter Section -->
+<section class="newsletter-section">
+    <h2 class="section-title">Latest News</h2>
+    <div class="newsletter-container">
+        {% for post in newsletter_posts %}
+            <div class="newsletter-card">
+                <div class="newsletter-image-wrapper">
+                    {% if post.image %}
+                        <img src="{{ post.image.url }}" alt="{{ post.title }}" class="newsletter-image">
+                    {% endif %}
+                </div>
+                <div class="newsletter-content">
+                    <h3>{{ post.title }}</h3>
+                    <p>{{ post.content }}</p>
+                    <p class="post-date">Posted on {{ post.created_at }}</p>
+                    <button class="newsletter-like-btn" data-newsletter-id="{{ post.id }}">
+                        {% if user.is_authenticated and user_liked_posts|dict_get:post.id %}
+                            Unlike ({{ post.likes.count }})
+                        {% else %}
+                            Like ({{ post.likes.count }})
+                        {% endif %}
+                    </button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock %}

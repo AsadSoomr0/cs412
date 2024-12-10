@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'quotes',
     'restaurant',
     'mini_fb',
-    'voter_analytics'
+    'voter_analytics',
+    'project'
 ]
 
 MIDDLEWARE = [
@@ -139,4 +140,8 @@ MEDIA_ROOT = BASE_DIR / 'media'  # Directory where media files will be stored
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_URL = '/mini_fb/login/'
+LOGIN_URL = '/accounts/login'
+
+LOGIN_REDIRECT_URL= '/project/'
+
+LOGOUT_REDIRECT_URL = '/project/'

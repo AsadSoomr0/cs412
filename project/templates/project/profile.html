@@ -1,0 +1,30 @@
+{% extends "project/base.html" %}
+{% load static %}
+{% block content %}
+<h1>{{ profile.user.username }}</h1>
+
+{% if profile.profile_picture %}
+    <img src="{{ profile.profile_picture.url }}" alt="{{ profile.user.username }}'s profile picture" style="width:150px; height:150px; border-radius:50%;">
+{% else %}
+    <p>No profile picture</p>
+{% endif %}
+
+<p><strong>Bio:</strong> {{ profile.bio }}</p>
+<p>Member since: {{ profile.user.date_joined|date:"F Y" }}</p>
+{% if profile.staff_status %}
+    <p><strong>[STAFF]</strong></p>
+{% endif %}
+
+<h2>Completed Climbs</h2>
+<ul>
+    {% for route in profile.completed_routes.all %}
+        <li>{{ route.name }} ({{ route.difficulty }})</li>
+    {% empty %}
+        <li>No climbs completed yet.</li>
+    {% endfor %}
+</ul>
+
+{% if user == profile.user %}
+    <a href="{% url 'edit-profile' user.username %}" class="btn btn-primary">Edit Profile</a>
+{% endif %}
+{% endblock %}

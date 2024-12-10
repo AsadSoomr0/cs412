@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock City</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/project_styles.css' %}">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="site-nav">
+        <ul>
+            <li><a href="{% url 'landing-page' %}">Home</a></li>
+            <li><a href="{% url 'route-list' %}">Routes</a></li>
+            <li><a href="{% url 'archived-voting' %}">Vote for Archived Climbs</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'profile' user.username %}">My Profile</a></li>
+                <li><a href="{% url 'edit-profile' user.username %}">Edit Profile</a></li>
+                <li>
+                    <form method="post" action="{% url 'logout' %}" style="display: inline;" class="logout-form">
+                        {% csrf_token %}
+                        <button type="submit" class="logout-link">
+                            <span>Logout</span>
+                        </button>
+                    </form>
+                </li>
+            {% else %}
+                <li><a href="{% url 'signup' %}">Sign Up</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="content-wrapper">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <p>&copy; 2024 Rock City. All rights reserved.</p>
+    </footer>
+</body>
+</html>
