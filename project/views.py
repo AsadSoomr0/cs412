@@ -1,3 +1,10 @@
+
+"""
+Author: Asad Soomro
+Email: asoomro@bu.edu
+Description: This file contains the views for the Rock City web application. The views include class-based views for handling routes, profiles, comments, and voting functionality, as well as function-based views for user registration.
+"""
+
 from django.views.generic import ListView, DetailView, RedirectView, TemplateView
 from django.views.generic.edit import UpdateView
 from django.views import View
@@ -15,6 +22,10 @@ from datetime import datetime
 
 #User creation view
 def signup(request):
+    """
+    Handles user registration. Displays a signup form and processes form submissions.
+
+    """
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -28,6 +39,9 @@ def signup(request):
 
 # List of all routes (current and archived)
 class RouteListView(ListView):
+    """
+    Displays a paginated list of routes with a filter for difficulty.
+    """
     model = Route
     template_name = 'project/route_list.html'
     context_object_name = 'routes'
@@ -66,6 +80,9 @@ class RouteListView(ListView):
 
 # Details for a single route, with comment form
 class RouteDetailView(DetailView):
+    """
+    Displays the details of a single route and handles comment submission.
+    """
     model = Route
     template_name = 'project/route_detail.html'
     context_object_name = 'route'
@@ -126,6 +143,9 @@ class RouteDetailView(DetailView):
 
 # "Like" a current route
 class CompleteRouteView(LoginRequiredMixin, View):
+    """
+    Toggles the "completed" status of a route for the current user.
+    """
     def post(self, request, *args, **kwargs):
         route = get_object_or_404(Route, pk=kwargs['route_id'], status='current')
         profile = request.user.project_profile
@@ -144,6 +164,9 @@ class CompleteRouteView(LoginRequiredMixin, View):
 
 # Vote for an archived route
 class VoteRouteView(LoginRequiredMixin, RedirectView):
+    """
+    Handles voting for archived routes.
+    """
     def post(self, request, *args, **kwargs):
         route = get_object_or_404(Route, pk=kwargs['route_id'], status='archived')
         if not Vote.objects.filter(route=route, user=request.user).exists():
@@ -154,6 +177,9 @@ class VoteRouteView(LoginRequiredMixin, RedirectView):
         return redirect('route-list')
 
 class LikeCommentView(LoginRequiredMixin, View):
+    """
+    Toggles the "like" status of a comment for the current user.
+    """
     def post(self, request, *args, **kwargs):
         comment = get_object_or_404(Comment, pk=kwargs['comment_id'])
         if request.user in comment.likes.all():
@@ -165,6 +191,9 @@ class LikeCommentView(LoginRequiredMixin, View):
         return JsonResponse({'liked': liked, 'like_count': comment.likes.count()})
     
 class LandingPageView(TemplateView):
+    """
+    Displays the landing page with recent newsletter posts.
+    """
     template_name = 'project/landing_page.html'
 
     def get_context_data(self, **kwargs):
@@ -197,9 +226,15 @@ class LikeNewsletterView(LoginRequiredMixin, View):
         return JsonResponse({'liked': liked, 'like_count': post.likes.count()})
     
 class ContactPageView(TemplateView):
+    """
+    Displays the contact us page.
+    """
     template_name = 'project/contact_us.html'
 
 class ArchivedVotingView(TemplateView):
+    """
+    Displays the archived voting page with a list of archived routes and their vote counts.
+    """
     template_name = 'project/archived_voting.html'
 
     def get_context_data(self, **kwargs):
@@ -215,6 +250,9 @@ class ArchivedVotingView(TemplateView):
         return context
     
 class ProfileView(DetailView):
+    """
+    Displays a user's profile page.
+    """
     model = Profile
     template_name = 'project/profile.html'
     context_object_name = 'profile'
@@ -224,6 +262,9 @@ class ProfileView(DetailView):
         return user.project_profile
     
 class EditProfileView(LoginRequiredMixin, UpdateView):
+    """
+    Allows a user to edit their profile.
+    """
     model = Profile
     form_class = ProfileForm
     template_name = 'project/edit_profile.html'
@@ -235,6 +276,9 @@ class EditProfileView(LoginRequiredMixin, UpdateView):
         return self.request.user.project_profile.get_absolute_url()
     
 class ReplyCommentView(LoginRequiredMixin, View):
+    """
+    Handles replies to comments on a route.
+    """
     def post(self, request, comment_id):
         parent_comment = get_object_or_404(Comment, id=comment_id)
         content = request.POST.get('content', '').strip()

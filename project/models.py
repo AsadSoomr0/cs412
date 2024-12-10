@@ -1,3 +1,16 @@
+"""
+Asad Soomro
+asoomro@bu.edu
+
+This file defines the data models for the Rock City climbing gym project. It includes the following models:
+1. Route: Represents climbing routes, their attributes, and associated images.
+2. Comment: Allows users to comment on specific routes, with support for replies and likes.
+3. Vote: Tracks user votes for archived climbing routes to bring them back into rotation.
+4. NewsletterPost: Represents newsletter posts with titles, content, creation dates, likes, and optional images.
+5. Profile: Extends the user model to include profile pictures, staff status, bio, and a list of completed routes.
+
+Each model includes methods for string representation and absolute URL generation where applicable.
+"""
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
@@ -57,16 +70,6 @@ class Comment(models.Model):
     def is_parent(self):
         return self.parent is None
 
-
-class Like(models.Model):
-    route = models.ForeignKey(Route, on_delete=models.CASCADE, related_name='likes')
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_likes')
-
-    class Meta:
-        unique_together = ('route', 'user')
-
-    def __str__(self):
-        return f'{self.user.username} likes {self.route.name}'
 
 
 class Vote(models.Model):

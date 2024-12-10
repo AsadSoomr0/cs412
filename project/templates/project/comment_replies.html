@@ -1,3 +1,11 @@
+<!-- 
+    comment_replies.html
+    Author: Asad Soomro
+    Email: asoomro@bu.edu
+
+    This template renders nested replies for comments on the Rock City web application. 
+    It recursively includes itself to display a hierarchical structure of replies for each comment.
+--> 
 {% load project_filters %}
 {% for comment in comments %}
     <div class="reply" id="reply-{{ comment.id }}" style="margin-left: 20px;">

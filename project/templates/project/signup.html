@@ -1,3 +1,11 @@
+<!-- 
+    signup.html
+    Author: Asad Soomro
+    Email: asoomro@bu.edu
+
+    This template renders the sign-up page for the Rock City web application. It includes a form 
+    for users to create an account and a link to the login page for existing users.
+--> 
 {% extends "project/base.html" %}
 {% load static %}
 {% block content %}
@@ -10,4 +18,5 @@
     </form>
     <p>Already have an account? <a href="{% url 'login' %}">Log in here.</a></p>
 </div>
+
 {% endblock %}

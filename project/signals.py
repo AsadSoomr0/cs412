@@ -1,3 +1,12 @@
+"""
+signals.py
+Author: Asad Soomro
+Email: asoomro@bu.edu
+
+This file contains signal handlers for the Rock City web application. It includes
+a post-save signal for the User model to automatically create or update a Profile
+instance whenever a User instance is created or saved.
+"""
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth.models import User

@@ -1,9 +1,17 @@
+"""
+admin.py
+Author: Asad Soomro
+Email: asoomro@bu.edu
+
+This module configures the Django admin interface for the Rock City web application. 
+It registers models such as Route, Comment, Vote, NewsletterPost, and Profile, 
+customizing their display and behavior within the admin panel.
+"""
 from django.contrib import admin
 from .models import *
 
 admin.site.register(Route)
 admin.site.register(Comment)
-admin.site.register(Like)
 admin.site.register(Vote)
 
 

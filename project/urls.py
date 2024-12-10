@@ -1,3 +1,14 @@
+"""
+urls.py
+Author: Asad Soomro
+Email: asoomro@bu.edu
+
+This file defines the URL patterns for the Rock City web application. Each URL is
+associated with a corresponding view to handle the request and return the appropriate
+response. The urlpatterns list maps URLs to their respective views, supporting main
+pages, route-specific actions, comment actions, newsletter actions, and user actions.
+"""
+
 from django.contrib.auth import views as auth_views
 from django.urls import path
 from .views import (

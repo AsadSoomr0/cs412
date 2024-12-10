@@ -1,3 +1,12 @@
+"""
+forms.py
+Author: Asad Soomro
+Email: asoomro@bu.edu
+
+This file defines the Django forms used in the Rock City web application. These forms
+provide user-friendly interfaces for creating and updating models such as comments,
+newsletter posts, profiles, and routes.
+"""
 from django import forms
 from .models import Comment, NewsletterPost, Profile, Route
 
